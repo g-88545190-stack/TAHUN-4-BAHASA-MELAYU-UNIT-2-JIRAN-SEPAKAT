@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tahun 4 Bahasa Melayu • Unit 2: Jiran Sepakat (hlm. 5–8)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #FEF3C7 0%, #E0F2FE 50%, #DCFCE7 100%);
+      min-height: 100vh;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* 主立体卡片容器 */
+    .panel-card {
+      background: rgba(255, 255, 255, 0.97);
+      border: 4px solid #0284C7;
+      box-shadow: 0 10px 0 #0369A1, 0 18px 28px rgba(3, 105, 161, 0.16);
+      border-radius: 28px;
+    }
+
+    /* 闪卡容器 */
+    .flashcard-box {
+      background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 4px solid #F59E0B;
+      box-shadow: 0 8px 0 #D97706;
+      border-radius: 24px;
+      transition: all 0.25s ease;
+    }
+    .flashcard-box.is-grammar {
+      background: linear-gradient(180deg, #F5F3FF 0%, #EDE9FE 100%);
+      border-color: #8B5CF6;
+      box-shadow: 0 8px 0 #6D28D9;
+    }
+
+    /* 3D 按钮特效 */
+    .btn-3d {
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      top: 0;
+    }
+    .btn-3d:active:not(:disabled) {
+      top: 4px;
+      box-shadow: 0 1px 0 currentColor !important;
+    }
+    .btn-3d:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      filter: grayscale(40%);
+    }
+
+    /* 选项按钮 */
+    .option-btn {
+      background: #FFFFFF;
+      border: 3px solid #7DD3FC;
+      box-shadow: 0 5px 0 #38BDF8;
+      color: #0C4A6E;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #F0F9FF;
+      border-color: #0284C7;
+      transform: translateY(-2px);
+    }
+
+    /* 弹跳出现动画 */
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      75% { transform: scale(1.03); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.28s ease-out forwards;
+    }
+
+    /* 答错抖动 */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+    .animate-shake {
+      animation: shake 0.38s ease-in-out;
+    }
+
+    /* 句子挖空槽 */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 2px 12px;
+      margin: 0 4px;
+      border-bottom: 4px dashed #F59E0B;
+      background-color: #FEF3C7;
+      border-radius: 10px;
+      color: #B45309;
+      font-weight: 800;
+      transition: all 0.25s ease;
+    }
+    .blank-slot.filled-right {
+      border-bottom: 4px solid #10B981;
+      background-color: #D1FAE5;
+      color: #065F46;
+      transform: scale(1.04);
+    }
+    .blank-slot.filled-wrong {
+      border-bottom: 4px solid #EF4444;
+      background-color: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* 较难国语字旁边的华语括弧注释 */
+    .hint-cn {
+      color: #4338CA;
+      font-size: 0.78em;
+      font-weight: 700;
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 2px;
+      display: inline-block;
+    }
+
+    /* 倒计时最后 7 秒红框紧张呼吸闪烁 */
+    @keyframes urgentBorder {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.65); border-color: #EF4444; }
+      50% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); border-color: #B91C1C; }
+    }
+    .tension-border {
+      animation: urgentBorder 0.52s infinite;
+    }
+
+    /* 猴子接香蕉画布样式 */
+    #monkeyCanvas {
+      background: linear-gradient(180deg, #7DD3FC 0%, #BAE6FD 65%, #86EFAC 65%, #4ADE80 100%);
+      border: 4px solid #15803D;
+      border-radius: 20px;
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-5 flex flex-col items-center">
+
+  <!-- ==================== 顶部导航与音效控制栏 ==================== -->
+  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between gap-2 mb-4 px-1">
+    <div class="flex items-center gap-2.5 bg-white/95 px-4 py-2 rounded-full shadow-md border-2 border-emerald-500">
+      <span class="text-2xl">🏘️</span>
+      <div>
+        <h1 class="text-sm sm:text-lg font-black text-emerald-950 leading-tight">Tahun 4 Bahasa Melayu • Unit 2: Jiran Sepakat (hlm. 5–8)</h1>
+        <p class="text-xs text-emerald-700 font-bold">左栏 Flashcard (5秒/张) ➔ 右栏三步闭环闯关 (静默读题5秒 • 作答30秒 • 100%掌握)</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- 静音默读提示徽章 -->
+      <span class="hidden sm:inline-flex items-center gap-1 bg-indigo-50 border border-indigo-300 text-indigo-800 text-xs font-black px-3 py-1.5 rounded-2xl">
+        🤫 静默阅读模式（不朗读答案）
+      </span>
+
+      <!-- 背景音乐开关 -->
+      <button id="bgmBtn" onclick="toggleBGM()" class="btn-3d bg-amber-100 border-2 border-amber-400 shadow-[0_4px_0_#D97706] text-amber-900 font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm flex items-center gap-1.5">
+        <span id="bgmIcon">🎵</span>
+        <span id="bgmText">背景音乐开</span>
+      </button>
+
+      <!-- 返回主页 -->
+      <button id="homeBtn" onclick="returnToMenu()" class="hidden btn-3d bg-rose-100 border-2 border-rose-400 shadow-[0_4px_0_#E11D48] text-rose-800 font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm">
+        🏠 选择关卡
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== 1. 学生登录与关卡选择主页 ==================== -->
+  <section id="menuScreen" class="w-full max-w-5xl panel-card p-6 sm:p-8 text-center my-auto">
+    <div class="text-5xl sm:text-6xl mb-2">🤝🏘️🏆🐒🍌</div>
+    <span class="inline-block bg-emerald-100 text-emerald-900 border border-emerald-300 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black mb-2">
+      四年级华小国语 Tahun 4 SJKC • Tema 1: Harmoni Sentiasa (Unit 2)
+    </span>
+    <h2 class="text-2xl sm:text-4xl font-black text-sky-950 mb-3">Unit 2: Jiran Sepakat 闪卡与三步闭环闯关</h2>
+
+    <!-- 学生资料输入 -->
+    <div class="bg-sky-50/90 border-2 border-sky-200 rounded-3xl p-4 max-w-lg mx-auto mb-5 text-left">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-black text-sky-900 mb-1">🧑‍🎓 学生姓名 (Nama Murid)：</label>
+          <input id="studentNameInput" type="text" placeholder="例如：Lim Zi Xuan 林子轩" class="w-full px-3.5 py-2 rounded-xl border-2 border-sky-300 font-bold text-gray-800 focus:outline-none focus:border-sky-600 bg-white text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-black text-sky-900 mb-1">🏫 班级 (Kelas)：</label>
+          <select id="studentClassInput" class="w-full px-3 py-2 rounded-xl border-2 border-sky-300 font-bold text-gray-800 focus:outline-none focus:border-sky-600 bg-white text-sm">
+            <option value="4M">4M</option>
+            <option value="4K">4K</option>
+            <option value="4B">4B</option>
+            <option value="4J">4J</option>
+            <option value="4A">4A</option>
+            <option value="4C">4C</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关卡选择网格 -->
+    <div class="text-left max-w-4xl mx-auto mb-5">
+      <div class="text-xs sm:text-sm font-black text-sky-900 mb-2.5 text-center">
+        👇 请选择要挑战的关卡（左边必须逐张看满 5 秒闪卡，右边才会解锁开始三步测验）：
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <button onclick="startStage('stage1')" class="btn-3d bg-amber-50 hover:bg-amber-100 border-3 border-amber-400 shadow-[0_5px_0_#D97706] rounded-2xl p-4 text-left">
+          <div class="flex items-center justify-between">
+            <span class="bg-amber-500 text-white text-xs font-black px-2.5 py-0.5 rounded-md">第 1 关 • 13 张闪卡</span>
+            <span class="text-xs font-black text-amber-800">hlm. 5–6</span>
+          </div>
+          <div class="text-base sm:text-lg font-black text-amber-950 mt-1">📖 生字 #1 – #12 + Bidalan 谚语</div>
+          <p class="text-xs font-bold text-amber-800 mt-1">lorong 小巷 ➔ ganjaran 奖赏（含谚语 alah membeli menang memakai）</p>
+        </button>
+
+        <button onclick="startStage('stage2')" class="btn-3d bg-sky-50 hover:bg-sky-100 border-3 border-sky-400 shadow-[0_5px_0_#0284C7] rounded-2xl p-4 text-left">
+          <div class="flex items-center justify-between">
+            <span class="bg-sky-600 text-white text-xs font-black px-2.5 py-0.5 rounded-md">第 2 关 • 16 张闪卡</span>
+            <span class="text-xs font-black text-sky-800">hlm. 6–8</span>
+          </div>
+          <div class="text-base sm:text-lg font-black text-sky-950 mt-1">🧠 生字 #13 – #24 + Kata Nama Khas 语法</div>
+          <p class="text-xs font-bold text-sky-800 mt-1">bangku 凳子 ➔ bercuti 度假 + 专有名词 (Puan Hui Fen / Si Hitam / Menara Condong)</p>
+        </button>
+
+        <button onclick="startStage('quick')" class="btn-3d bg-emerald-50 hover:bg-emerald-100 border-3 border-emerald-400 shadow-[0_5px_0_#059669] rounded-2xl p-4 text-left">
+          <div class="flex items-center justify-between">
+            <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded-md">综合快测 • 12 题</span>
+            <span class="text-xs font-black text-emerald-800">含必玩猴子小游戏</span>
+          </div>
+          <div class="text-base sm:text-lg font-black text-emerald-950 mt-1">⚡ 随堂综合快测 (10 生字 + 2 语法)</div>
+          <p class="text-xs font-bold text-emerald-800 mt-1">精选本单元高频词汇与 Kata Nama Khas 语法，完成 10 题触发小猴子接香蕉！</p>
+        </button>
+
+        <button onclick="startStage('all')" class="btn-3d bg-gradient-to-r from-rose-500 to-orange-500 border-3 border-rose-800 shadow-[0_5px_0_#9F1239] rounded-2xl p-4 text-left text-white">
+          <div class="flex items-center justify-between">
+            <span class="bg-white/25 text-white text-xs font-black px-2.5 py-0.5 rounded-md">🏆 全单元总挑战 • 29 张卡</span>
+            <span class="text-xs font-black text-amber-200">100% 掌握大师</span>
+          </div>
+          <div class="text-base sm:text-lg font-black mt-1">🔥 全部 24 生字 + Bidalan + Kata Nama Khas</div>
+          <p class="text-xs font-bold text-rose-100 mt-1">完整攻克第 5–8 页所有生字、Kata Dasar 词根与专有名词语法！</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- 核心游戏机制提示条 -->
+    <div class="bg-slate-100 border-2 border-slate-200 rounded-2xl p-3 max-w-4xl mx-auto text-xs font-bold text-slate-700 flex flex-wrap justify-center gap-x-5 gap-y-1.5">
+      <span>🔒 <strong>左闪卡防跳过：</strong>每张看满 5 秒才解锁下一张</span>
+      <span>👀 <strong>5 秒读题锁：</strong>审题 5 秒后开启 30 秒倒计时（静默不读答案）</span>
+      <span>🔄 <strong>三步闭环：</strong>选国语填句 ➔ 选华语意思 ➔ 选 Kata Dasar（若有）</span>
+      <span>🎁 <strong>答对 5 题：</strong>抽 Bonus 技能卡</span>
+      <span>🍌 <strong>每完成 10 题：</strong>启动小猴子接香蕉小游戏！</span>
+    </div>
+  </section>
+
+  <!-- ==================== 2. 左右分屏学习与闯关工作区 ==================== -->
+  <main id="gameWorkspace" class="hidden w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+    <!-- 左栏 (5列)：Flashcard 记忆闪卡区 -->
+    <section class="lg:col-span-5 panel-card p-5 sm:p-6 flex flex-col justify-between border-amber-500 shadow-[0_10px_0_#D97706]">
+      <div>
+        <!-- 左栏顶栏 -->
+        <div class="flex items-center justify-between gap-2 mb-3 pb-3 border-b-2 border-amber-200">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🗂️</span>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-amber-950">左边：Flashcard 记忆闪卡</h2>
+              <p class="text-xs font-bold text-amber-700">每张至少学习 5 秒，全部看完解锁右边测验</p>
+            </div>
+          </div>
+          <span id="fcCounterBadge" class="bg-amber-200 text-amber-950 font-black px-3 py-1 rounded-full text-xs sm:text-sm">
+            1 / 13
+          </span>
+        </div>
+
+        <!-- 闪卡进度条 -->
+        <div class="w-full h-3 bg-amber-100 rounded-full overflow-hidden border border-amber-300 mb-4">
+          <div id="fcProgressBar" class="h-full bg-amber-500 transition-all duration-300" style="width: 5%;"></div>
+        </div>
+
+        <!-- 闪卡内容卡片 -->
+        <div id="flashcardCard" class="flashcard-box p-4 sm:p-5 text-center">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span id="fcNumTag" class="bg-amber-500 text-white text-xs font-black px-2.5 py-1 rounded-lg">#1</span>
+            <span id="fcTypeTag" class="bg-white/90 border border-amber-300 text-amber-900 text-xs font-extrabold px-2.5 py-1 rounded-lg">📖 Kosa Kata 生词</span>
+          </div>
+
+          <!-- 国语生词与音节划分 -->
+          <div id="fcMainTerm" class="text-2xl sm:text-3xl font-black text-sky-950 mt-1">
+            lorong
+          </div>
+          <div id="fcSyllables" class="text-xs sm:text-sm font-extrabold text-amber-800 mb-1.5">
+            音节划分：(lo/rong)
+          </div>
+
+          <!-- 华语意思 -->
+          <div class="my-1.5">
+            <span id="fcChineseMeaning" class="inline-block bg-rose-100 border-2 border-rose-300 text-rose-800 text-lg sm:text-xl font-black px-4 py-1 rounded-2xl">
+              小巷
+            </span>
+          </div>
+
+          <!-- Kata Dasar / Sinonim / Antonim 标签组 -->
+          <div id="fcTagsRow" class="flex flex-wrap items-center justify-center gap-1.5 my-2">
+          </div>
+
+          <!-- 记忆小妙招 (帮助学生记住每个字的华语意思) -->
+          <div class="bg-amber-100/95 border-2 border-amber-300 rounded-2xl p-3 text-left my-2">
+            <div class="text-xs font-black text-amber-900 mb-0.5 flex items-center gap-1">
+              <span>💡</span>
+              <span id="fcTipHeader">记忆华语意思小妙招 (Cara Mengingat)：</span>
+            </div>
+            <p id="fcMemoryTip" class="text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
+              lorong 读音像“罗弄”（马来西亚常说的“某某罗弄”），就是大路旁边窄窄的“小巷”！
+            </p>
+          </div>
+
+          <!-- 课本例句 (较难字附华语括弧注释) -->
+          <div class="bg-white/95 border-2 border-sky-200 rounded-2xl p-3 text-left">
+            <div class="text-xs font-black text-sky-700 mb-0.5">📖 课本例句 (Ayat Contoh)：</div>
+            <p id="fcSentence" class="text-sm sm:text-base font-bold text-gray-800 leading-relaxed">
+              Di tepi rumah besar itu terdapat (有) sebatang <span class="text-sky-700 underline font-black">lorong</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 闪卡底部翻页与 5 秒强制倒计时按钮 -->
+      <div class="mt-4 pt-3 border-t-2 border-amber-100">
+        <div class="flex items-center justify-between gap-3">
+          <button id="fcPrevBtn" onclick="prevFlashcard()" class="btn-3d bg-gray-200 border-2 border-gray-400 shadow-[0_4px_0_#9CA3AF] text-gray-800 font-extrabold px-4 py-3 rounded-2xl text-sm">
+            ⬅️ 上一张
+          </button>
+
+          <button id="fcNextBtn" onclick="nextFlashcard()" disabled class="flex-1 btn-3d bg-emerald-500 border-2 border-emerald-700 shadow-[0_4px_0_#047857] text-white font-black px-4 py-3 rounded-2xl text-sm sm:text-base">
+            <span id="fcNextLabel">⏳ 请仔细学习 (5s)</span>
+          </button>
+        </div>
+
+        <div id="fcUnlockedHint" class="hidden mt-2.5 bg-emerald-100 border-2 border-emerald-400 text-emerald-900 rounded-2xl p-2 text-center text-xs font-black animate-pop">
+          🎉 本关闪卡已全部学完，右边测验已解锁！随时可翻阅左边闪卡复习。
+        </div>
+      </div>
+    </section>
+
+    <!-- 右栏 (7列)：Quiz 三步闭环闯关区 -->
+    <section id="quizPanel" class="lg:col-span-7 panel-card p-5 sm:p-7 relative flex flex-col justify-between overflow-hidden">
+
+      <!-- 严格防跳过锁定遮罩层 -->
+      <div id="quizLockCover" class="absolute inset-0 bg-slate-900/86 backdrop-blur-xs z-20 flex flex-col items-center justify-center p-6 text-center text-white">
+        <div class="bg-white/15 border-2 border-white/30 rounded-3xl p-6 sm:p-8 max-w-md backdrop-blur-md">
+          <div class="text-6xl mb-3 animate-bounce">🔒</div>
+          <h3 class="text-2xl font-black text-amber-300 mb-2">测验区暂未解锁！</h3>
+          <p class="text-sm sm:text-base font-bold text-sky-100 leading-relaxed mb-4">
+            不能跳过左边的 Flashcard 直接完成测验哦！<br/>
+            请先认真看完左边本关全部 <strong id="lockTotalCardsText">13</strong> 张闪卡（每张至少 5 秒），学完后右边测验会自动开启。
+          </p>
+          <div class="bg-black/45 rounded-2xl px-4 py-2.5 text-sm font-black text-emerald-300 border border-emerald-400/40">
+            闪卡学习进度：<span id="lockProgressText">0 / 13</span> 张已完成
+          </div>
+        </div>
+      </div>
+
+      <!-- 测验上部内容 -->
+      <div>
+        <!-- 顶栏：100% 掌握进度 + 30秒计时器 + 积分与连胜 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-3 border-b-2 border-sky-100">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="bg-emerald-100 text-emerald-950 font-black px-2.5 py-1 rounded-xl border border-emerald-300 text-xs">
+              🎯 已完全掌握：<span id="masteredCountText" class="text-emerald-600 text-sm">0</span> / <span id="totalGoalText">13</span>
+            </span>
+            <span id="requeueBadge" class="hidden bg-amber-100 text-amber-900 font-black px-2.5 py-1 rounded-xl border border-amber-400 text-xs animate-pulse">
+              🔁 错题重练：<span id="requeueCountText">0</span>
+            </span>
+            <span class="bg-yellow-100 text-yellow-900 font-black px-2.5 py-1 rounded-xl border border-yellow-400 text-xs" title="每完成 10 题启动小猴子接香蕉游戏">
+              🍌 距猴子游戏：<span id="monkeyCountdownText">10</span>题
+            </span>
+          </div>
+
+          <!-- 5秒读题锁 / 30秒作答倒计时器 -->
+          <div class="flex-1 min-w-[160px] max-w-xs mx-auto">
+            <div class="flex justify-between items-center text-xs font-black mb-1">
+              <span id="timerPhaseLabel" class="text-amber-700">👀 仔细阅读句子...</span>
+              <span id="timerValueText" class="text-sm sm:text-base text-amber-800 font-black">5s</span>
+            </div>
+            <div class="w-full h-3.5 bg-gray-200 rounded-full overflow-hidden border border-gray-300 p-0.5">
+              <div id="timerProgressBar" class="h-full bg-amber-500 rounded-full transition-all duration-200" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- 得分与连胜计数器 -->
+          <div class="flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-2xl border border-slate-300 text-xs font-black">
+            <span class="text-indigo-700">⭐ <span id="scorePointsText">0</span>分</span>
+            <span class="text-gray-300">|</span>
+            <span class="text-orange-600" title="每全对 5 题获得 Bonus 技能！">🔥 <span id="streakCountText">0</span>/5</span>
+          </div>
+        </div>
+
+        <!-- 🎒 Bonus 技能背包栏 -->
+        <div class="bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-2 border-amber-300 rounded-2xl px-3 py-2 mb-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5 text-xs font-black text-amber-900">
+            <span>🎁</span>
+            <span>Bonus 技能栏 <span class="text-[11px] font-bold text-amber-700">(每全对5题解锁1个)</span>：</span>
+            <span id="doubleScoreIndicator" class="hidden bg-rose-500 text-white text-[11px] px-2 py-0.5 rounded-full animate-bounce">
+              ✨ 2x 双倍积分生效中 (<span id="doubleChargesLeft">0</span>题)
+            </span>
+          </div>
+          <div id="bonusInventoryBar" class="flex flex-wrap items-center gap-1.5">
+            <span class="text-xs font-bold text-gray-400 italic">暂无技能，全对 5 题即可抽取！</span>
+          </div>
+        </div>
+
+        <!-- 三步作答进度胶囊条 -->
+        <div class="grid grid-cols-3 gap-1.5 mb-3 text-center">
+          <div id="pillStep1" class="px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-sky-600 text-white shadow-sm">
+            1️⃣ 选国语字填入句子
+          </div>
+          <div id="pillStep2" class="px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-gray-200 text-gray-500">
+            2️⃣ 选出华语意思
+          </div>
+          <div id="pillStep3" class="px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-gray-200 text-gray-500">
+            3️⃣ 选出 Kata Dasar
+          </div>
+        </div>
+
+        <!-- 5 秒读题锁提示横幅 -->
+        <div id="readWaitBanner" class="bg-amber-50 border-2 border-amber-300 rounded-2xl px-4 py-2 mb-3 text-center">
+          <span id="readWaitText" class="text-xs sm:text-sm font-black text-amber-900">
+            ⏳ 作答前请先仔细阅读句子和括弧华语提示（5 秒后解锁选项）...
+          </span>
+        </div>
+
+        <!-- 题目展示框 -->
+        <div class="bg-sky-50/90 border-2 border-sky-200 rounded-3xl p-4 sm:p-5 mb-4 text-center relative">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+            <span id="promptHelperNote" class="text-xs font-bold text-indigo-700">💡 括弧内为较难国语字的华语意思，协助你理解句子：</span>
+            <span id="mistakeFlagBadge" class="hidden bg-rose-100 text-rose-800 border border-rose-300 text-[11px] font-black px-2 py-0.5 rounded-lg">
+              ⚠️ 本题曾出错，请继续完成所有步骤，稍后将重练
+            </span>
+          </div>
+          <div id="quizQuestionBox" class="text-lg sm:text-2xl font-black text-slate-800 leading-relaxed">
+            Di tepi rumah besar itu terdapat (有) sebatang <span class="blank-slot">______</span>.
+          </div>
+        </div>
+
+        <!-- 4 个选项按钮区 -->
+        <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        </div>
+      </div>
+
+      <!-- 底部反馈栏 -->
+      <div id="quizFeedbackArea" class="mt-4 pt-3 border-t-2 border-sky-100 text-center min-h-[44px] flex items-center justify-center">
+        <span class="text-xs sm:text-sm font-bold text-gray-500">请先静默读题 5 秒，倒计时结束后立即开启 30 秒作答 ⏱️</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 3. 每答对 5 题 Bonus 技能奖励抽取弹窗 ==================== -->
+  <div id="bonusModal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="panel-card max-w-xl w-full p-6 sm:p-7 text-center border-amber-500 shadow-[0_10px_0_#D97706] animate-pop">
+      <div class="text-5xl sm:text-6xl mb-2">🎁🎉🌟</div>
+      <span class="inline-block bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-black mb-1">
+        Hebat! 累计全对达到 5 题倍数！
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-black text-sky-950">恭喜获得 Bonus 技能奖励！</h2>
+      <p class="text-xs sm:text-sm font-bold text-gray-600 mt-1 mb-4">请从下方 4 种强力道具中任选 1 个放入你的技能背包（答题时随时点击使用）：</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+        <button onclick="claimBonusSkill('time')" class="btn-3d bg-sky-50 hover:bg-sky-100 border-3 border-sky-400 shadow-[0_4px_0_#0284C7] rounded-2xl p-3.5">
+          <div class="text-lg font-black text-sky-950">⏰ 延长回答时间</div>
+          <p class="text-xs font-bold text-sky-800 mt-1">在答题倒计时中点击使用，立即增加 <strong>+15 秒</strong> 作答时间！</p>
+        </button>
+
+        <button onclick="claimBonusSkill('hint')" class="btn-3d bg-amber-50 hover:bg-amber-100 border-3 border-amber-400 shadow-[0_4px_0_#D97706] rounded-2xl p-3.5">
+          <div class="text-lg font-black text-amber-950">💡 智能提示卡</div>
+          <p class="text-xs font-bold text-amber-800 mt-1">在当前步骤点击使用，自动帮你<strong>排除 2 个错误选项</strong>！</p>
+        </button>
+
+        <button onclick="claimBonusSkill('double')" class="btn-3d bg-rose-50 hover:bg-rose-100 border-3 border-rose-400 shadow-[0_4px_0_#E11D48] rounded-2xl p-3.5">
+          <div class="text-lg font-black text-rose-950">✨ 分数翻倍卡</div>
+          <p class="text-xs font-bold text-rose-800 mt-1">使用后接下来 <strong>3 道全对题目</strong> 获得的积分全部 <strong>2 倍翻倍</strong>！</p>
+        </button>
+
+        <button onclick="claimBonusSkill('shield')" class="btn-3d bg-emerald-50 hover:bg-emerald-100 border-3 border-emerald-400 shadow-[0_4px_0_#059669] rounded-2xl p-3.5">
+          <div class="text-lg font-black text-emerald-950">🔄 错题护盾 / 重答卡</div>
+          <p class="text-xs font-bold text-emerald-800 mt-1">答错时点击可<strong>免除重练惩罚</strong>，或直接消除 1 道错题队列！</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 4. 每 10 题小猴子接香蕉迷你游戏弹窗 ==================== -->
+  <div id="monkeyGameModal" class="hidden fixed inset-0 bg-slate-900/85 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="panel-card max-w-xl w-full p-5 sm:p-6 text-center border-emerald-600 shadow-[0_10px_0_#15803D] animate-pop">
+      <div class="flex items-center justify-between gap-2 mb-2">
+        <span class="bg-amber-200 text-amber-950 font-black px-3 py-1 rounded-full text-xs sm:text-sm">
+          🐒 奖励小游戏：喂小猴子吃香蕉！
+        </span>
+        <span class="bg-rose-100 text-rose-800 font-black px-3 py-1 rounded-full text-xs sm:text-sm">
+          ⏱️ 剩余：<span id="monkeyTimeLeft">15</span>s
+        </span>
+      </div>
+
+      <p class="text-xs sm:text-sm font-bold text-gray-700 mb-3">
+        已答满 10 题！左右移动小猴子接住掉落的 <strong>🍌 香蕉 (+10分)</strong>，小心避开 <strong>🥥 椰子 (-5分)</strong>！
+      </p>
+
+      <div class="flex justify-center mb-3">
+        <canvas id="monkeyCanvas" width="460" height="300" class="w-full max-w-[460px] h-auto"></canvas>
+      </div>
+
+      <!-- 触屏与鼠标左右移动大按钮 -->
+      <div class="flex items-center justify-between gap-3 max-w-[460px] mx-auto">
+        <button id="monkeyLeftBtn" onmousedown="setMonkeyMove(-1)" onmouseup="setMonkeyMove(0)" onmouseleave="setMonkeyMove(0)" ontouchstart="setMonkeyMove(-1); event.preventDefault();" ontouchend="setMonkeyMove(0); event.preventDefault();" class="flex-1 btn-3d bg-amber-400 border-2 border-amber-700 shadow-[0_4px_0_#B45309] text-amber-950 font-black py-3 rounded-2xl text-base">
+          ⬅️ 向左移
+        </button>
+
+        <div class="bg-emerald-100 border-2 border-emerald-400 px-4 py-2 rounded-2xl text-center">
+          <div class="text-[11px] font-black text-emerald-800">接获香蕉奖励</div>
+          <div class="text-lg font-black text-emerald-700">+<span id="monkeyBonusPts">0</span> 分</div>
+        </div>
+
+        <button id="monkeyRightBtn" onmousedown="setMonkeyMove(1)" onmouseup="setMonkeyMove(0)" onmouseleave="setMonkeyMove(0)" ontouchstart="setMonkeyMove(1); event.preventDefault();" ontouchend="setMonkeyMove(0); event.preventDefault();" class="flex-1 btn-3d bg-amber-400 border-2 border-amber-700 shadow-[0_4px_0_#B45309] text-amber-950 font-black py-3 rounded-2xl text-base">
+          向右移 ➡️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 5. 100% 掌握通关成绩单弹窗 ==================== -->
+  <div id="summaryModal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="panel-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center animate-pop">
+      <div class="text-6xl mb-2">🏆👑🎊</div>
+      <span class="inline-block bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1 rounded-full text-xs font-black mb-1">
+        100% Penguasaan • 全部题目 100% 掌握通关！
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-black text-sky-950">Tahniah! 恭喜达到 100% 掌握率！</h2>
+      <p id="summaryStudentMeta" class="text-sm font-extrabold text-indigo-700 mt-1">Tahun 4 Bahasa Melayu • Unit 2: Jiran Sepakat</p>
+
+      <div class="grid grid-cols-3 gap-3 my-5">
+        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-emerald-700">最终掌握率</div>
+          <div class="text-2xl sm:text-3xl font-black text-emerald-600">100%</div>
+        </div>
+        <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-sky-700">最终总积分</div>
+          <div id="sumTotalScore" class="text-2xl sm:text-3xl font-black text-sky-600">0</div>
+        </div>
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-amber-700">总作答轮次</div>
+          <div id="sumTotalAttempts" class="text-2xl sm:text-3xl font-black text-amber-600">0</div>
+        </div>
+      </div>
+
+      <div class="text-left mb-5">
+        <div class="text-xs font-black text-gray-600 mb-1.5">📋 完整作答与错题攻克记录：</div>
+        <div id="sumReviewList" class="max-h-56 overflow-y-auto space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="startStage(currentStageKey)" class="btn-3d bg-emerald-500 border-2 border-emerald-700 shadow-[0_4px_0_#047857] text-white font-black py-3 px-6 rounded-2xl text-sm">
+          🔄 再挑战本关一次
+        </button>
+        <button onclick="returnToMenu()" class="btn-3d bg-sky-500 border-2 border-sky-700 shadow-[0_4px_0_#0369A1] text-white font-black py-3 px-6 rounded-2xl text-sm">
+          🏠 返回选择其他关卡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 完整 JavaScript 题库与三步闭环 + 猴子游戏逻辑 ==================== -->
+  <script>
+    // =========================================================================
+    // 1. Unit 2: Jiran Sepakat (hlm. 5–8 全部 24 生词 + Bidalan + Kata Nama Khas)
+    // =========================================================================
+    const UNIT2_BM_DATA = [
+      // --- #1 - #12 (Stage 1) ---
+      {
+        id: "1", isGrammar: false, word: "lorong", syllables: "lo/rong",
+        kataDasar: null, sinonim: "jalan kecil 小路", antonim: null,
+        meaning: "小巷",
+        tip: "lorong 音译就是马来西亚华语常说的“罗弄”（例如 Lorong 3），指大路旁边窄窄的“小巷”！",
+        sentenceHTML: "Di tepi rumah besar itu terdapat (有) sebatang <span class='blank-slot'>______</span>.",
+        bmOptions: ["lorong", "bangku", "papan tanda", "ganjaran"],
+        zhOptions: ["小巷", "凳子", "指示牌", "奖赏"]
+      },
+      {
+        id: "2", isGrammar: false, word: "bangga", syllables: "bang/ga",
+        kataDasar: null, sinonim: null, antonim: null,
+        meaning: "光荣",
+        tip: "看到邻居们互相合作把花园打扫得干干净净，陈先生心里感到非常自豪、“光荣”（bangga）！",
+        sentenceHTML: "Encik Tan <span class='blank-slot'>______</span> akan sikap (态度) penduduk (居民) yang saling bekerjasama dalam menjaga kebersihan (整洁) taman.",
+        bmOptions: ["bangga", "indah", "layak", "sentosa"],
+        zhOptions: ["光荣", "迷人", "有资格", "安宁"]
+      },
+      {
+        id: "3", isGrammar: false, word: "indah", syllables: "in/dah",
+        kataDasar: null, sinonim: "cantik 美丽", antonim: null,
+        meaning: "迷人",
+        tip: "indah 的同义词是 cantik（美丽），形容甘榜（kampung）的风景美得令人陶醉，即“迷人”！",
+        sentenceHTML: "Pemandangan (风景) di kampung Ainil sungguh <span class='blank-slot'>______</span>.",
+        bmOptions: ["indah", "bangga", "sengketa", "layak"],
+        zhOptions: ["迷人", "光荣", "纠纷", "有资格"]
+      },
+      {
+        id: "4", isGrammar: false, word: "layak", syllables: "la/yak",
+        kataDasar: null, sinonim: "patut 合格", antonim: null,
+        meaning: "有资格",
+        tip: "黄先生非常负责任（bertanggungjawab），大家一致认为他完全合格、“有资格”（layak）当主席！",
+        sentenceHTML: "Encik Wei Sheng memang <span class='blank-slot'>______</span> dipilih (被选) sebagai ketua kerana beliau seorang yang bertanggungjawab (负责任).",
+        bmOptions: ["layak", "bangga", "indah", "sentosa"],
+        zhOptions: ["有资格", "光荣", "迷人", "安宁"]
+      },
+      {
+        id: "5", isGrammar: false, word: "kemenangan", syllables: "ke/me/na/ngan",
+        kataDasar: "menang", sinonim: "kejayaan 成功", antonim: "kekalahan 失败",
+        meaning: "胜利",
+        tip: "词根（Kata Dasar）是 menang（赢），加上前后缀 ke-...-an 变成名词，大家一起努力赢得的成果就是“胜利”！",
+        sentenceHTML: "“<span class='blank-slot'>______</span> ini merupakan hasil (成果) usaha (努力) kita semua,” kata Hui Ting kepada kawan-kawannya.",
+        bmOptions: ["Kemenangan", "Ganjaran", "Bantuan", "Sengketa"],
+        zhOptions: ["胜利", "奖赏", "援助", "纠纷"],
+        kdOptions: ["menang", "kalah", "jaya", "usaha"]
+      },
+      {
+        id: "6", isGrammar: false, word: "bergotong-royong", syllables: "ber/go/tong-ro/yong",
+        kataDasar: "gotong-royong", sinonim: null, antonim: null,
+        meaning: "分工合作",
+        tip: "词根是 gotong-royong（大扫除/互助），加上前缀 ber- 变成动词，居民一起清理礼堂范围就是“分工合作”！",
+        sentenceHTML: "Penduduk Taman Penggawa akan <span class='blank-slot'>______</span> untuk membersihkan kawasan (范围) dewan (礼堂) esok.",
+        bmOptions: ["bergotong-royong", "berkunjung", "bercuti", "menghias"],
+        zhOptions: ["分工合作", "拜访", "度假", "装饰"],
+        kdOptions: ["gotong-royong", "royong", "gotong", "tolong"]
+      },
+      {
+        id: "7", isGrammar: false, word: "menghias", syllables: "meng/hias",
+        kataDasar: "hias", sinonim: null, antonim: null,
+        meaning: "装饰",
+        tip: "词根（Kata Dasar）是 hias，用五颜六色的气球（belon）和彩带（reben）把舞台打扮得漂漂亮亮，就是“装饰”！",
+        sentenceHTML: "Kami <span class='blank-slot'>______</span> pentas (舞台) dengan belon (气球) dan reben (彩带) yang berwarna-warni (五颜六色).",
+        bmOptions: ["menghias", "hindari", "bercuti", "berkunjung"],
+        zhOptions: ["装饰", "避免", "度假", "拜访"],
+        kdOptions: ["hias", "hiasan", "menghiasi", "bersih"]
+      },
+      {
+        id: "8", isGrammar: false, word: "tersembunyi", syllables: "ter/sem/bu/nyi",
+        kataDasar: "sembunyi", sinonim: "terlindung 隐藏", antonim: "terdedah 暴露",
+        meaning: "隐藏",
+        tip: "玩捉迷藏（main sembunyi-sembunyi）时要把自己藏起来，词根 sembunyi 加 ter- 就是被“隐藏”起来的物品！",
+        sentenceHTML: "Para peserta (参赛者) perlu mencari barang yang <span class='blank-slot'>______</span> di sekitar (周围) taman rekreasi (休闲公园).",
+        bmOptions: ["tersembunyi", "menyeronokkan", "berpeluang", "indah"],
+        zhOptions: ["隐藏", "使人愉快", "有机会", "迷人"],
+        kdOptions: ["sembunyi", "bunyi", "lindung", "dedah"]
+      },
+      {
+        id: "9", isGrammar: false, word: "menyeronokkan", syllables: "me/nye/ro/nok/kan",
+        kataDasar: "seronok", sinonim: "menggembirakan 使人欢喜", antonim: null,
+        meaning: "使人愉快",
+        tip: "词根是 seronok（开心/愉快），加上 meN-...-kan（这里 s 变成 ny）表示让别人也开心，即“使人愉快”！",
+        sentenceHTML: "Aktiviti bermain di taman permainan merupakan aktiviti yang <span class='blank-slot'>______</span>.",
+        bmOptions: ["menyeronokkan", "tersembunyi", "layak", "bangga"],
+        zhOptions: ["使人愉快", "隐藏", "有资格", "光荣"],
+        kdOptions: ["seronok", "nyeronok", "gembira", "suka"]
+      },
+      {
+        id: "10", isGrammar: false, word: "bekerjasama", syllables: "be/ker/ja/sa/ma",
+        kataDasar: "kerjasama", sinonim: null, antonim: null,
+        meaning: "互相合作",
+        tip: "kerja 是“工作”，sama 是“一起”，词根 kerjasama 加上前缀 be-，大家一起动手清理草地就是“互相合作”！",
+        sentenceHTML: "Encik Raju dan jiran-jirannya <span class='blank-slot'>______</span> membersihkan semak samun (灌木丛) di padang.",
+        bmOptions: ["bekerjasama", "bercuti", "hindari", "berkunjung"],
+        zhOptions: ["互相合作", "度假", "避免", "拜访"],
+        kdOptions: ["kerjasama", "kerja", "sama", "jasa"]
+      },
+      {
+        id: "11", isGrammar: false, word: "berpeluang", syllables: "ber/pe/luang",
+        kataDasar: "peluang", sinonim: "berkesempatan 有时机", antonim: null,
+        meaning: "有机会",
+        tip: "词根是 peluang（机会），加上前缀 ber- 表示拥有这个好时机，去马六甲坐三轮车（beca）就是“有机会”！",
+        sentenceHTML: "Nazirah <span class='blank-slot'>______</span> untuk menaiki beca (三轮车) semasa melawat ke Melaka.",
+        bmOptions: ["berpeluang", "tersembunyi", "bangga", "layak"],
+        zhOptions: ["有机会", "隐藏", "光荣", "有资格"],
+        kdOptions: ["peluang", "luang", "sempat", "lawat"]
+      },
+      {
+        id: "12", isGrammar: false, word: "ganjaran", syllables: "gan/ja/ran",
+        kataDasar: "ganjar", sinonim: null, antonim: null,
+        meaning: "奖赏",
+        tip: "词根是 ganjar，帮陈太太找回走失的小猫后得到的金钱酬谢就是“奖赏”（ganjaran）！",
+        sentenceHTML: "Puan Chan memberi Razif wang sebagai <span class='blank-slot'>______</span> kerana telah menjumpai (找到) kucingnya yang hilang.",
+        bmOptions: ["ganjaran", "bantuan", "kemenangan", "lorong"],
+        zhOptions: ["奖赏", "援助", "胜利", "小巷"],
+        kdOptions: ["ganjar", "ajar", "balas", "hadiah"]
+      },
+      {
+        id: "B1", isGrammar: true, word: "alah membeli menang memakai", syllables: "Bidalan 谚语 (hlm. 5)",
+        kataDasar: null, sinonim: "barang bermutu tinggi 品质优良的商品", antonim: null,
+        meaning: "一分钱一分货",
+        tip: "课本第5页重点谚语（Bidalan）：虽然买的时候多花了一点钱（alah membeli），但品质好、非常耐穿耐用（menang memakai），就是“一分钱一分货”！",
+        sentenceHTML: "Barang yang bermutu (有品质) memang mahal harganya, tetapi dapat dipakai lama seperti bidalan <span class='blank-slot'>______</span>.",
+        bmOptions: ["alah membeli menang memakai", "berganding bahu", "bersatu hati", "beramah mesra"],
+        zhOptions: ["一分钱一分货", "齐心协力", "同心协力", "亲切"]
+      },
+
+      // --- #13 - #24 (Stage 2) ---
+      {
+        id: "13", isGrammar: false, word: "bangku", syllables: "bang/ku",
+        kataDasar: null, sinonim: null, antonim: null,
+        meaning: "凳子",
+        tip: "bangku 读音跟华语的“板凳”有点像，公园里供人坐着休息的长椅子就是“凳子”！",
+        sentenceHTML: "Ayah duduk di <span class='blank-slot'>______</span> sambil melihat adik bermain layang-layang (风筝) di taman.",
+        bmOptions: ["bangku", "lorong", "papan tanda", "sengketa"],
+        zhOptions: ["凳子", "小巷", "指示牌", "纠纷"]
+      },
+      {
+        id: "14", isGrammar: false, word: "papan tanda", syllables: "pa/pan tan/da",
+        kataDasar: null, sinonim: null, antonim: null,
+        meaning: "指示牌",
+        tip: "papan 是“木板”，tanda 是“记号/标志”，写在木板上用来指明地名或方向的牌子就是“指示牌”！",
+        sentenceHTML: "<span class='blank-slot'>______</span> Taman Seroja itu dipasang (被安装) di hadapan balai raya (民众会堂).",
+        bmOptions: ["Papan tanda", "Bangku", "Lorong", "Bantuan"],
+        zhOptions: ["指示牌", "凳子", "小巷", "援助"]
+      },
+      {
+        id: "15", isGrammar: false, word: "berganding bahu", syllables: "ber/gan/ding ba/hu",
+        kataDasar: null, sinonim: "bekerjasama 互相合作", antonim: null,
+        meaning: "齐心协力",
+        tip: "ganding 是“并排/携手”，bahu 是“肩膀”，大家肩并肩一起出力搭帐篷（khemah），就是“齐心协力”！",
+        sentenceHTML: "Jiran-jiran Encik Rashid <span class='blank-slot'>______</span> untuk memasang (搭起) khemah (帐篷) bagi majlis perkahwinan (婚礼) anaknya.",
+        bmOptions: ["berganding bahu", "beramah mesra", "hindari", "bercuti"],
+        zhOptions: ["齐心协力", "亲切", "避免", "度假"]
+      },
+      {
+        id: "16", isGrammar: false, word: "bersatu hati", syllables: "ber/sa/tu ha/ti",
+        kataDasar: null, sinonim: "sepakat 团结一致", antonim: null,
+        meaning: "同心协力",
+        tip: "satu 是“一”，hati 是“心”，所有居民把心连成一条心（万众一心）解决偷窃案，就是“同心协力”！",
+        sentenceHTML: "Penduduk Taman Mulia <span class='blank-slot'>______</span> untuk menyelesaikan (解决) kes kecurian (偷窃案) di taman mereka.",
+        bmOptions: ["bersatu hati", "berkunjung", "bercuti", "menghias"],
+        zhOptions: ["同心协力", "拜访", "度假", "装饰"]
+      },
+      {
+        id: "17", isGrammar: false, word: "sentosa", syllables: "sen/to/sa",
+        kataDasar: null, sinonim: "aman 太平", antonim: null,
+        meaning: "安宁",
+        tip: "马来西亚经常说 aman dan sentosa（和平与安宁），形容各族邻居和谐共处、生活平安平静，就是“安宁”！",
+        sentenceHTML: "Walaupun penduduk taman itu berbilang bangsa (多元种族) tetapi mereka hidup dengan <span class='blank-slot'>______</span>nya.",
+        bmOptions: ["sentosa", "sengketa", "indah", "bangga"],
+        zhOptions: ["安宁", "纠纷", "迷人", "光荣"]
+      },
+      {
+        id: "18", isGrammar: false, word: "beramah mesra", syllables: "be/ra/mah mes/ra",
+        kataDasar: null, sinonim: null, antonim: null,
+        meaning: "亲切",
+        tip: "ramah 是“友善健谈”，mesra 是“融洽亲密”，与邻居微笑打招呼、拉近友谊（silaturahim）的态度就是“亲切”！",
+        sentenceHTML: "Kita hendaklah <span class='blank-slot'>______</span> dengan jiran tetangga (邻居) untuk mengeratkan (促进) silaturahim (友谊或亲属关系).",
+        bmOptions: ["beramah mesra", "hindari", "bercuti", "menghias"],
+        zhOptions: ["亲切", "避免", "度假", "装饰"]
+      },
+      {
+        id: "19", isGrammar: false, word: "hindari", syllables: "hin/da/ri",
+        kataDasar: "hindar", sinonim: "jauhi 远离", antonim: "hampiri 靠近",
+        meaning: "避免",
+        tip: "词根是 hindar，同义词是 jauhi（远离）。自私的态度（sikap mementingkan diri）会破坏邻里关系，必须“避免”！",
+        sentenceHTML: "Sikap mementingkan diri (自私的态度) haruslah kita <span class='blank-slot'>______</span> dalam hidup bermasyarakat (社会生活).",
+        bmOptions: ["hindari", "berkunjung", "menghias", "bercuti"],
+        zhOptions: ["避免", "拜访", "装饰", "度假"],
+        kdOptions: ["hindar", "jauh", "hampir", "lari"]
+      },
+      {
+        id: "20", isGrammar: false, word: "sengketa", syllables: "seng/ke/ta",
+        kataDasar: null, sinonim: "pergaduhan 争吵", antonim: null,
+        meaning: "纠纷",
+        tip: "不要伤害邻居的心（menyakiti hati），就能防止彼此吵架或产生矛盾冲突，sengketa 就是“纠纷”！",
+        sentenceHTML: "Kita tidak boleh menyakiti hati (伤害……的心) jiran tetangga untuk mengelakkan (避免) <span class='blank-slot'>______</span>.",
+        bmOptions: ["sengketa", "ganjaran", "bantuan", "kemenangan"],
+        zhOptions: ["纠纷", "奖赏", "援助", "胜利"]
+      },
+      {
+        id: "21", isGrammar: false, word: "hormat-menghormati", syllables: "hor/mat-meng/hor/ma/ti",
+        kataDasar: "hormat", sinonim: null, antonim: null,
+        meaning: "互相尊重",
+        tip: "词根是 hormat（尊重），重叠词 hormat-menghormati 表示你尊重我、我也尊重你，无论什么种族和宗教都要“互相尊重”！",
+        sentenceHTML: "Kita hendaklah <span class='blank-slot'>______</span> antara jiran tetangga tanpa mengira (不分) bangsa dan agama (宗教).",
+        bmOptions: ["hormat-menghormati", "bergotong-royong", "bercuti", "hindari"],
+        zhOptions: ["互相尊重", "分工合作", "度假", "避免"],
+        kdOptions: ["hormat", "mati", "bangsa", "agama"]
+      },
+      {
+        id: "22", isGrammar: false, word: "berkunjung", syllables: "ber/kun/jung",
+        kataDasar: "kunjung", sinonim: "bertandang 到……做客", antonim: null,
+        meaning: "拜访",
+        tip: "词根是 kunjung，同义词 bertandang（到……做客）。开斋节（hari raya）时去友族邻居家里做客祝贺，就是“拜访”！",
+        sentenceHTML: "Puan Lim dan Puan Kamala <span class='blank-slot'>______</span> ke rumah Puan Zihan pada hari raya.",
+        bmOptions: ["berkunjung", "bercuti", "hindari", "menghias"],
+        zhOptions: ["拜访", "度假", "避免", "装饰"],
+        kdOptions: ["kunjung", "tandang", "rayau", "pulang"]
+      },
+      {
+        id: "23", isGrammar: false, word: "bantuan", syllables: "ban/tuan",
+        kataDasar: "bantu", sinonim: "pertolongan 帮忙", antonim: null,
+        meaning: "援助",
+        tip: "词根是 bantu（帮忙），加上后缀 -an 变成名词，水灾灾民（mangsa banjir）收到的金钱和食物救济就是“援助”！",
+        sentenceHTML: "Semua mangsa banjir (水灾灾民) akan menerima <span class='blank-slot'>______</span> berbentuk wang dan makanan daripada wakil rakyat (人民代议士).",
+        bmOptions: ["bantuan", "sengketa", "lorong", "bangku"],
+        zhOptions: ["援助", "纠纷", "小巷", "凳子"],
+        kdOptions: ["bantu", "tolong", "tuan", "wakil"]
+      },
+      {
+        id: "24", isGrammar: false, word: "bercuti", syllables: "ber/cu/ti",
+        kataDasar: "cuti", sinonim: null, antonim: null,
+        meaning: "度假",
+        tip: "词根是 cuti（假期），学校假期（cuti sekolah）时全家人飞去沙巴（Sabah）放松游玩，bercuti 就是“度假”！",
+        sentenceHTML: "Wan Shing dan keluarganya akan <span class='blank-slot'>______</span> di Sabah pada cuti sekolah nanti.",
+        bmOptions: ["bercuti", "berkunjung", "hindari", "bekerjasama"],
+        zhOptions: ["度假", "拜访", "避免", "互相合作"],
+        kdOptions: ["cuti", "cuci", "lawat", "rehat"]
+      },
+
+      // --- Fokus Unit (hlm. 8): Kata Nama Khas 专有名词 ---
+      {
+        id: "G1", isGrammar: true, word: "Puan Hui Fen", syllables: "Kata Nama Khas • Manusia (人物)",
+        kataDasar: null, sinonim: "Kata Nama Khas 专有名词", antonim: null,
+        meaning: "专有名词（特定人物的名字，每个字开头必须大写）",
+        tip: "课本第8页 Fokus Unit：Kata Nama Khas（专有名词）用来称呼特定的人、动物、地方或物品，首字母必须大写！例如人物：Puan Hui Fen、Azura。",
+        sentenceHTML: "Guru kelas Tahun 4 Merah ialah <span class='blank-slot'>______</span> (Kata Nama Khas Manusia 人物专有名词).",
+        bmOptions: ["Puan Hui Fen", "puan hui fen", "guru besar", "jiran tetangga"],
+        zhOptions: ["专有名词（特定人物的名字，每个字开头必须大写）", "普通名词（小写错误）", "校长（普通名词 Kata Nama Am）", "邻居（普通名词）"]
+      },
+      {
+        id: "G2", isGrammar: true, word: "Si Hitam", syllables: "Kata Nama Khas • Binatang (动物)",
+        kataDasar: null, sinonim: "Contoh lain: Si Comel", antonim: null,
+        meaning: "专有名词（给宠物动物取的专属名字，如“小黑”）",
+        tip: "课本第8页 Fokus Unit：kucing（猫）是普通名词，但如果你给黑猫取名字叫 Si Hitam（小黑）或 Si Comel（小可爱），就是动物专有名词，S 和 H 都要大写！",
+        sentenceHTML: "Kucing kesayangan (心爱的) Razif bernama <span class='blank-slot'>______</span> (Kata Nama Khas Binatang 动物专有名词).",
+        bmOptions: ["Si Hitam", "si hitam", "seekor kucing", "kucing hitam"],
+        zhOptions: ["专有名词（给宠物动物取的专属名字，如“小黑”）", "书写错误（专有名词首字母未大写）", "一只猫（普通名词）", "黑猫（普通名词）"]
+      },
+      {
+        id: "G3", isGrammar: true, word: "Menara Condong", syllables: "Kata Nama Khas • Tempat (地方)",
+        kataDasar: null, sinonim: "Contoh lain: Kuala Selangor", antonim: null,
+        meaning: "专有名词（特定建筑物或地名，如安顺斜塔）",
+        tip: "课本第8页 Fokus Unit：特定建筑物和地名属于 Kata Nama Khas Tempat（地方专有名词），例如 Menara Condong（斜塔）、Kuala Selangor（瓜拉雪兰莪），首字母都要大写！",
+        sentenceHTML: "Kami sekeluarga melawat ke <span class='blank-slot'>______</span> (Kata Nama Khas Tempat 地方专有名词) di Teluk Intan.",
+        bmOptions: ["Menara Condong", "menara condong", "taman permainan", "balai raya"],
+        zhOptions: ["专有名词（特定建筑物或地名，如安顺斜塔）", "书写错误（地名首字母未大写）", "游乐场（普通名词）", "民众会堂（普通名词）"]
+      },
+      {
+        id: "G4", isGrammar: true, word: "Kamus Peribahasa", syllables: "Kata Nama Khas • Judul Buku (书名)",
+        kataDasar: null, sinonim: "Contoh benda: Proton Persona", antonim: null,
+        meaning: "专有名词（特定书名或品牌名称，如《谚语词典》）",
+        tip: "课本第8页 Fokus Unit：书名（Judul Buku）和汽车品牌（如 Proton Persona）属于无生命物品的专有名词（Benda yang tidak bernyawa），如 Kamus Peribahasa，首字母必须大写！",
+        sentenceHTML: "Mei Ling membaca buku yang bertajuk (书名为) <span class='blank-slot'>______</span> di perpustakaan.",
+        bmOptions: ["Kamus Peribahasa", "kamus peribahasa", "sebuah buku", "buku cerita"],
+        zhOptions: ["专有名词（特定书名或品牌名称，如《谚语词典》）", "书写错误（书名首字母未大写）", "一本书（普通名词）", "故事书（普通名词）"]
+      }
+    ];
+
+    // =========================================================================
+    // 2. 全局状态管理
+    // =========================================================================
+    let studentName = "";
+    let studentClass = "4M";
+    let currentStageKey = "stage1";
+
+    let activeFlashcards = [];
+    let currentCardIdx = 0;
+    let learnedCardsSet = new Set();
+    let cardLockTimer = null;
+    let cardWaitSeconds = 5;
+
+    // 测验队列 (支持错题重新排入，直到 100% 掌握)
+    let quizQueue = [];
+    let currentQuestionObj = null;
+    let currentStep = 1; // 1: 选国语字填句, 2: 选华语意思, 3: 选 Kata Dasar (若有)
+    let currentQuestionHadMistake = false;
+    let currentQuestionShielded = false;
+
+    let initialTotalQuestions = 0;
+    let masteredCount = 0;
+    let totalAttemptsCount = 0;
+    let consecutivePerfectCount = 0; // 每满 5 题触发 Bonus 技能奖励
+    let scorePoints = 0;
+    let doubleScoreCharges = 0;
+
+    // Bonus 技能背包
+    let bonusInventory = [];
+
+    // 计时器状态
+    let preReadTimer = null;
+    let preReadSeconds = 5;
+    let isPreReadLocked = true;
+    let answerTimer = null;
+    let answerSecondsLeft = 30;
+
+    let reviewLog = [];
+
+    // =========================================================================
+    // 3. Web Audio API 背景音乐 + 倒计时最后 7 秒紧张变奏音效
+    //    (绝不使用 speechSynthesis 朗读句子或答案)
+    // =========================================================================
+    let audioCtx = null;
+    let bgmOn = true;
+    let bgmTension = false;
+    let bgmTimer = null;
+    let melodyPos = 0;
+
+    const CALM_NOTES = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46, 659.25, 783.99, 1046.50, 783.99, 587.33, 493.88, 523.25, 0];
+    const TENSION_NOTES = [440.00, 466.16, 440.00, 466.16, 523.25, 554.37, 523.25, 554.37];
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleBGM() {
+      initAudio();
+      bgmOn = !bgmOn;
+      const btn = document.getElementById("bgmBtn");
+      const icon = document.getElementById("bgmIcon");
+      const txt = document.getElementById("bgmText");
+
+      if (bgmOn) {
+        icon.textContent = "🎵";
+        txt.textContent = "背景音乐开";
+        btn.classList.replace("bg-gray-200", "bg-amber-100");
+        runBGMLoop();
+      } else {
+        icon.textContent = "🔇";
+        txt.textContent = "背景音乐关";
+        btn.classList.replace("bg-amber-100", "bg-gray-200");
+        clearTimeout(bgmTimer);
+      }
+    }
+
+    function setBGMTension(isUrgent) {
+      if (bgmTension === isUrgent) return;
+      bgmTension = isUrgent;
+      melodyPos = 0;
+      if (bgmOn) {
+        clearTimeout(bgmTimer);
+        runBGMLoop();
+      }
+    }
+
+    function runBGMLoop() {
+      if (!bgmOn) return;
+      try {
+        initAudio();
+        const scale = bgmTension ? TENSION_NOTES : CALM_NOTES;
+        const freq = scale[melodyPos % scale.length];
+        melodyPos++;
+        const interval = bgmTension ? 135 : 340;
+
+        if (freq > 0) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = bgmTension ? "sawtooth" : "triangle";
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          const vol = bgmTension ? 0.058 : 0.036;
+          gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (interval / 1000) * 0.88);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + (interval / 1000) * 0.9);
+        }
+        bgmTimer = setTimeout(runBGMLoop, interval);
+      } catch (e) {}
+    }
+
+    function playFeedbackTone(kind) {
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (kind === "step_ok" || kind === "banana") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(783.99, now + 0.08);
+          gain.gain.setValueAtTime(0.13, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        } else if (kind === "all_ok" || kind === "unlock" || kind === "bonus") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.08);
+          osc.frequency.setValueAtTime(783.99, now + 0.16);
+          osc.frequency.setValueAtTime(1046.50, now + 0.24);
+          gain.gain.setValueAtTime(0.17, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+          osc.start(now);
+          osc.stop(now + 0.48);
+        } else if (kind === "wrong") {
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(210, now);
+          osc.frequency.linearRampToValueAtTime(135, now + 0.34);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 4. 工具函数与关卡启动
+    // =========================================================================
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function formatChineseParentheses(htmlStr) {
+      return htmlStr.replace(/\(([^()]+)\)/g, `<span class="hint-cn">($1)</span>`);
+    }
+
+    function startStage(stageKey) {
+      currentStageKey = stageKey;
+      const rawName = document.getElementById("studentNameInput").value.trim();
+      studentName = rawName || "四年级小勇士";
+      studentClass = document.getElementById("studentClassInput").value;
+
+      if (stageKey === "stage1") {
+        // #1 - #12 + Bidalan (index 0..12)
+        activeFlashcards = UNIT2_BM_DATA.slice(0, 13);
+      } else if (stageKey === "stage2") {
+        // #13 - #24 + Kata Nama Khas (index 13..28)
+        activeFlashcards = UNIT2_BM_DATA.slice(13);
+      } else if (stageKey === "quick") {
+        // 10 生字 + 2 语法 = 12 题 (确保答满 10 题触发小猴子接香蕉小游戏！)
+        const vocabPool = UNIT2_BM_DATA.filter(x => !x.isGrammar);
+        const gramPool = UNIT2_BM_DATA.filter(x => x.isGrammar);
+        activeFlashcards = [...shuffleArray(vocabPool).slice(0, 10), ...shuffleArray(gramPool).slice(0, 2)];
+      } else {
+        // 全单元 29 张卡
+        activeFlashcards = [...UNIT2_BM_DATA];
+      }
+
+      initAudio();
+      if (bgmOn) {
+        clearTimeout(bgmTimer);
+        runBGMLoop();
+      }
+
+      // 重置状态
+      currentCardIdx = 0;
+      learnedCardsSet.clear();
+      quizQueue = [];
+      masteredCount = 0;
+      totalAttemptsCount = 0;
+      consecutivePerfectCount = 0;
+      scorePoints = 0;
+      doubleScoreCharges = 0;
+      bonusInventory = [];
+      reviewLog = [];
+
+      updateScoreAndBonusUI();
+
+      document.getElementById("menuScreen").classList.add("hidden");
+      document.getElementById("bonusModal").classList.add("hidden");
+      document.getElementById("monkeyGameModal").classList.add("hidden");
+      document.getElementById("summaryModal").classList.add("hidden");
+      document.getElementById("gameWorkspace").classList.remove("hidden");
+      document.getElementById("homeBtn").classList.remove("hidden");
+
+      // 严格锁定右侧测验区
+      const lockCover = document.getElementById("quizLockCover");
+      lockCover.classList.remove("hidden", "opacity-0", "pointer-events-none");
+      document.getElementById("lockTotalCardsText").textContent = activeFlashcards.length;
+      document.getElementById("fcUnlockedHint").classList.add("hidden");
+
+      updateFlashcardProgressUI();
+      renderFlashcard(0);
+    }
+
+    function returnToMenu() {
+      clearInterval(cardLockTimer);
+      clearInterval(preReadTimer);
+      clearInterval(answerTimer);
+      stopMonkeyMiniGame();
+      setBGMTension(false);
+      document.getElementById("gameWorkspace").classList.add("hidden");
+      document.getElementById("bonusModal").classList.add("hidden");
+      document.getElementById("monkeyGameModal").classList.add("hidden");
+      document.getElementById("summaryModal").classList.add("hidden");
+      document.getElementById("homeBtn").classList.add("hidden");
+      document.getElementById("menuScreen").classList.remove("hidden");
+    }
+
+    // =========================================================================
+    // 5. 左侧 Flashcard 逻辑 (每张强制 5 秒学习，不朗读)
+    // =========================================================================
+    function renderFlashcard(idx) {
+      const item = activeFlashcards[idx];
+      const total = activeFlashcards.length;
+
+      document.getElementById("fcCounterBadge").textContent = `${idx + 1} / ${total}`;
+      document.getElementById("fcNumTag").textContent = `#${item.id}`;
+      document.getElementById("fcMainTerm").textContent = item.word;
+      document.getElementById("fcSyllables").textContent = item.isGrammar ? item.syllables : `音节划分：(${item.syllables})`;
+      document.getElementById("fcChineseMeaning").textContent = item.meaning;
+      document.getElementById("fcMemoryTip").textContent = item.tip;
+
+      const cardBox = document.getElementById("flashcardCard");
+      const typeTag = document.getElementById("fcTypeTag");
+      const tipHeader = document.getElementById("fcTipHeader");
+
+      if (item.isGrammar) {
+        cardBox.classList.add("is-grammar");
+        typeTag.textContent = "🧠 Fokus Unit 语法 / 谚语";
+        typeTag.className = "bg-purple-600 text-white text-xs font-black px-2.5 py-1 rounded-lg";
+        tipHeader.textContent = "语法与记忆秘诀 (Tips)：";
+      } else {
+        cardBox.classList.remove("is-grammar");
+        typeTag.textContent = "📖 Kosa Kata 生词";
+        typeTag.className = "bg-white/90 border border-amber-300 text-amber-900 text-xs font-extrabold px-2.5 py-1 rounded-lg";
+        tipHeader.textContent = "记忆华语意思小妙招 (Cara Mengingat)：";
+      }
+
+      // 渲染 Kata Dasar / Sinonim / Antonim 标签
+      const tagsRow = document.getElementById("fcTagsRow");
+      tagsRow.innerHTML = "";
+      if (item.kataDasar) {
+        tagsRow.innerHTML += `<span class="bg-purple-100 border border-purple-300 text-purple-900 text-xs font-black px-2.5 py-0.5 rounded-lg">🌱 Kata Dasar: ${item.kataDasar}</span>`;
+      } else if (!item.isGrammar) {
+        tagsRow.innerHTML += `<span class="bg-gray-100 border border-gray-300 text-gray-600 text-xs font-bold px-2.5 py-0.5 rounded-lg">🌱 Kata Dasar: 无 (原形词)</span>`;
+      }
+      if (item.sinonim) {
+        tagsRow.innerHTML += `<span class="bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold px-2.5 py-0.5 rounded-lg">🟰 Sinonim: ${item.sinonim}</span>`;
+      }
+      if (item.antonim) {
+        tagsRow.innerHTML += `<span class="bg-rose-100 border border-rose-300 text-rose-900 text-xs font-bold px-2.5 py-0.5 rounded-lg">↔️ Antonim: ${item.antonim}</span>`;
+      }
+
+      const answerHighlight = item.bmOptions[0];
+      const completedSentence = item.sentenceHTML.replace(
+        "<span class='blank-slot'>______</span>",
+        `<span class="text-sky-700 underline decoration-wavy font-black px-1">${answerHighlight}</span>`
+      );
+      document.getElementById("fcSentence").innerHTML = formatChineseParentheses(completedSentence);
+
+      document.getElementById("fcPrevBtn").disabled = (idx === 0);
+
+      // 5 秒强制学习倒计时
+      clearInterval(cardLockTimer);
+      const nextBtn = document.getElementById("fcNextBtn");
+      const nextLabel = document.getElementById("fcNextLabel");
+
+      if (learnedCardsSet.has(idx)) {
+        nextBtn.disabled = false;
+        nextLabel.textContent = (idx === total - 1) ? "✅ 全部看完！解锁右边测验" : "下一张 ➡️";
+      } else {
+        cardWaitSeconds = 5;
+        nextBtn.disabled = true;
+        nextLabel.textContent = `⏳ 请仔细学习 (${cardWaitSeconds}s)`;
+
+        cardLockTimer = setInterval(() => {
+          cardWaitSeconds--;
+          nextLabel.textContent = `⏳ 请仔细学习 (${cardWaitSeconds}s)`;
+          if (cardWaitSeconds <= 0) {
+            clearInterval(cardLockTimer);
+            learnedCardsSet.add(idx);
+            updateFlashcardProgressUI();
+            nextBtn.disabled = false;
+            nextLabel.textContent = (idx === total - 1) ? "✅ 全部看完！解锁右边测验" : "下一张 ➡️";
+          }
+        }, 1000);
+      }
+    }
+
+    function prevFlashcard() {
+      if (currentCardIdx > 0) {
+        currentCardIdx--;
+        renderFlashcard(currentCardIdx);
+      }
+    }
+
+    function nextFlashcard() {
+      if (!learnedCardsSet.has(currentCardIdx)) return;
+      if (currentCardIdx < activeFlashcards.length - 1) {
+        currentCardIdx++;
+        renderFlashcard(currentCardIdx);
+      } else {
+        unlockRightQuizAndStart();
+      }
+    }
+
+    function updateFlashcardProgressUI() {
+      const done = learnedCardsSet.size;
+      const total = activeFlashcards.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById("fcProgressBar").style.width = `${pct}%`;
+      document.getElementById("lockProgressText").textContent = `${done} / ${total}`;
+    }
+
+    function unlockRightQuizAndStart() {
+      const cover = document.getElementById("quizLockCover");
+      if (!cover.classList.contains("hidden")) {
+        playFeedbackTone("unlock");
+        cover.classList.add("opacity-0", "pointer-events-none");
+        setTimeout(() => cover.classList.add("hidden"), 350);
+        document.getElementById("fcUnlockedHint").classList.remove("hidden");
+
+        quizQueue = shuffleArray(activeFlashcards).map(item => ({
+          data: item,
+          isRetry: false
+        }));
+        initialTotalQuestions = quizQueue.length;
+        masteredCount = 0;
+
+        document.getElementById("totalGoalText").textContent = initialTotalQuestions;
+        updateMasteryProgressUI();
+        loadNextQuizQuestion();
+      }
+    }
+
+    // =========================================================================
+    // 6. 右侧 Quiz 三步闭环逻辑 + 5秒读题锁 + 30秒计时 + 100%掌握 + Bonus + 猴子游戏
+    // =========================================================================
+    function updateMasteryProgressUI() {
+      document.getElementById("masteredCountText").textContent = masteredCount;
+      const retryPending = quizQueue.filter(q => q.isRetry).length;
+      const badge = document.getElementById("requeueBadge");
+      if (retryPending > 0) {
+        badge.classList.remove("hidden");
+        document.getElementById("requeueCountText").textContent = retryPending;
+      } else {
+        badge.classList.add("hidden");
+      }
+
+      // 更新距离下一次小猴子接香蕉游戏的剩余题数
+      const remToMonkey = 10 - (totalAttemptsCount % 10);
+      document.getElementById("monkeyCountdownText").textContent = remToMonkey;
+    }
+
+    function loadNextQuizQuestion() {
+      clearInterval(preReadTimer);
+      clearInterval(answerTimer);
+      setBGMTension(false);
+      document.getElementById("quizPanel").classList.remove("tension-border");
+
+      if (quizQueue.length === 0) {
+        showFinalSummary();
+        return;
+      }
+
+      currentQuestionObj = quizQueue.shift();
+      const item = currentQuestionObj.data;
+
+      currentStep = 1;
+      currentQuestionHadMistake = false;
+      currentQuestionShielded = false;
+      isPreReadLocked = true;
+
+      updateMasteryProgressUI();
+
+      // 显示是否为错题重练
+      const flagBadge = document.getElementById("mistakeFlagBadge");
+      if (currentQuestionObj.isRetry) {
+        flagBadge.classList.remove("hidden");
+        flagBadge.textContent = "🔁 错题重练挑战（本次全对即可消除错题）";
+      } else {
+        flagBadge.classList.add("hidden");
+      }
+
+      // 设置三步胶囊状态（根据是否有 Kata Dasar 动态更新第 3 步标签）
+      setStepPillsUI(1, Boolean(item.kataDasar));
+
+      document.getElementById("promptHelperNote").textContent = item.isGrammar
+        ? "🧠 Fokus Unit 语法 / 谚语填空（括弧内为华语提示）："
+        : "💡 括弧内为较难国语字的华语意思，协助你理解句子（不朗读答案）：";
+      document.getElementById("quizQuestionBox").innerHTML = formatChineseParentheses(item.sentenceHTML);
+
+      // 渲染第一步国语选项并锁定 5 秒
+      renderQuizOptions(shuffleArray(item.bmOptions), "bm");
+      setOptionsDisabled(true);
+
+      start5SecPreReadLock();
+    }
+
+    function start5SecPreReadLock() {
+      clearInterval(preReadTimer);
+      preReadSeconds = 5;
+      isPreReadLocked = true;
+
+      const banner = document.getElementById("readWaitBanner");
+      const bannerTxt = document.getElementById("readWaitText");
+      banner.className = "bg-amber-50 border-2 border-amber-300 rounded-2xl px-4 py-2 mb-3 text-center";
+      bannerTxt.className = "text-xs sm:text-sm font-black text-amber-900";
+      bannerTxt.textContent = `⏳ 作答前请先仔细静默阅读句子和括弧华语提示（${preReadSeconds} 秒后解锁选项）...`;
+
+      document.getElementById("timerPhaseLabel").textContent = "👀 5秒读题准备...";
+      document.getElementById("timerPhaseLabel").className = "text-amber-700 font-black";
+      document.getElementById("timerValueText").textContent = `${preReadSeconds}s`;
+      document.getElementById("timerValueText").className = "text-sm sm:text-base text-amber-800 font-black";
+      document.getElementById("timerProgressBar").style.width = "100%";
+      document.getElementById("timerProgressBar").className = "h-full bg-amber-500 rounded-full transition-all duration-200";
+
+      document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-bold text-amber-700">请先认真读懂完整句子，5 秒后立即开启 30 秒作答时间 📖</span>`;
+
+      preReadTimer = setInterval(() => {
+        preReadSeconds--;
+        if (preReadSeconds > 0) {
+          bannerTxt.textContent = `⏳ 作答前请先仔细静默阅读句子和括弧华语提示（${preReadSeconds} 秒后解锁选项）...`;
+          document.getElementById("timerValueText").textContent = `${preReadSeconds}s`;
+          document.getElementById("timerProgressBar").style.width = `${(preReadSeconds / 5) * 100}%`;
+        } else {
+          clearInterval(preReadTimer);
+          isPreReadLocked = false;
+          setOptionsDisabled(false);
+
+          const hasKD = Boolean(currentQuestionObj.data.kataDasar);
+          banner.className = "bg-emerald-50 border-2 border-emerald-300 rounded-2xl px-4 py-2 mb-3 text-center";
+          bannerTxt.className = "text-xs sm:text-sm font-black text-emerald-800";
+          bannerTxt.textContent = hasKD
+            ? "✅ 选项已解锁！请在 30 秒内完成 3 步（填国语 ➔ 选华语 ➔ 选 Kata Dasar）！"
+            : "✅ 选项已解锁！请在 30 秒内完成 2 步（填国语 ➔ 选华语意思）！";
+
+          document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-sky-700">第 1 步：请选出正确的国语字填入句子空格！</span>`;
+          start30SecAnswerCountdown();
+        }
+      }, 1000);
+    }
+
+    function start30SecAnswerCountdown() {
+      clearInterval(answerTimer);
+      answerSecondsLeft = 30;
+      updateAnswerCountdownUI(30);
+
+      answerTimer = setInterval(() => {
+        answerSecondsLeft--;
+        updateAnswerCountdownUI(answerSecondsLeft);
+
+        // 最后 7 秒：音乐切换紧张节奏 + 红色呼吸框
+        if (answerSecondsLeft <= 7 && answerSecondsLeft > 0) {
+          setBGMTension(true);
+          document.getElementById("quizPanel").classList.add("tension-border");
+        } else {
+          setBGMTension(false);
+          document.getElementById("quizPanel").classList.remove("tension-border");
+        }
+
+        if (answerSecondsLeft <= 0) {
+          clearInterval(answerTimer);
+          setBGMTension(false);
+          document.getElementById("quizPanel").classList.remove("tension-border");
+          handleTimeUp();
+        }
+      }, 1000);
+    }
+
+    function updateAnswerCountdownUI(sec) {
+      const displaySec = Math.max(0, sec);
+      const pct = Math.min(100, (displaySec / 30) * 100);
+      const bar = document.getElementById("timerProgressBar");
+      const valTxt = document.getElementById("timerValueText");
+      const phaseTxt = document.getElementById("timerPhaseLabel");
+
+      bar.style.width = `${pct}%`;
+      valTxt.textContent = `${displaySec}s`;
+
+      if (displaySec <= 7) {
+        bar.className = "h-full bg-rose-600 rounded-full transition-all duration-200";
+        valTxt.className = "text-sm sm:text-base text-rose-600 font-black animate-ping";
+        phaseTxt.textContent = "🚨 倒计时快结束啦！快选！";
+        phaseTxt.className = "text-rose-600 font-black";
+      } else if (displaySec <= 15) {
+        bar.className = "h-full bg-amber-500 rounded-full transition-all duration-200";
+        valTxt.className = "text-sm sm:text-base text-amber-700 font-black";
+        phaseTxt.textContent = "⏳ 抓紧时间作答...";
+        phaseTxt.className = "text-amber-700 font-black";
+      } else {
+        bar.className = "h-full bg-emerald-500 rounded-full transition-all duration-200";
+        valTxt.className = "text-sm sm:text-base text-emerald-700 font-black";
+        phaseTxt.textContent = "⏱️ 30秒作答倒计时";
+        phaseTxt.className = "text-emerald-700 font-black";
+      }
+    }
+
+    function handleTimeUp() {
+      const item = currentQuestionObj.data;
+      const correctBm = item.bmOptions[0];
+      currentQuestionHadMistake = true;
+      playFeedbackTone("wrong");
+      setOptionsDisabled(true);
+
+      document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-rose-600 animate-shake">⏰ 超过 30 秒未完成！正解：${correctBm} (${item.meaning}) — 已排入稍后重练队列</span>`;
+
+      totalAttemptsCount++;
+      consecutivePerfectCount = 0;
+      updateScoreAndBonusUI();
+
+      quizQueue.push({ data: item, isRetry: true });
+      updateMasteryProgressUI();
+
+      reviewLog.push({
+        term: correctBm,
+        meaning: item.meaning,
+        kataDasar: item.kataDasar,
+        mastered: false,
+        note: "超时未完成，已排入重练"
+      });
+
+      setTimeout(() => checkPostQuestionEvents(false), 1400);
+    }
+
+    function setStepPillsUI(step, hasKataDasar) {
+      const p1 = document.getElementById("pillStep1");
+      const p2 = document.getElementById("pillStep2");
+      const p3 = document.getElementById("pillStep3");
+
+      const baseInactive = "px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-gray-200 text-gray-500";
+      const baseActive = "px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-sky-600 text-white shadow-sm animate-pop";
+      const baseDone = "px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-emerald-500 text-white";
+
+      p1.className = step === 1 ? baseActive : baseDone;
+      p2.className = step === 2 ? baseActive : (step > 2 ? baseDone : baseInactive);
+
+      if (hasKataDasar) {
+        p3.textContent = "3️⃣ 选出 Kata Dasar";
+        p3.className = step === 3 ? baseActive : baseInactive;
+      } else {
+        p3.textContent = "3️⃣ 本词无 Kata Dasar";
+        p3.className = "px-2 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold bg-slate-100 text-slate-400 line-through";
+      }
+    }
+
+    function setOptionsDisabled(disabled) {
+      document.querySelectorAll("#quizOptionsGrid button").forEach(btn => {
+        if (!btn.dataset.eliminated) {
+          btn.disabled = disabled;
+        }
+      });
+    }
+
+    function renderQuizOptions(optionsList, stepKind) {
+      const grid = document.getElementById("quizOptionsGrid");
+      grid.innerHTML = "";
+      const tags = ["A", "B", "C", "D"];
+      const badgeColor = stepKind === "bm" ? "bg-sky-600" : (stepKind === "zh" ? "bg-rose-500" : "bg-purple-600");
+
+      const item = currentQuestionObj.data;
+      const correctAnswerForStep = stepKind === "bm"
+        ? item.bmOptions[0]
+        : (stepKind === "zh" ? item.meaning : item.kataDasar);
+
+      optionsList.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "btn-3d option-btn p-3 sm:p-3.5 rounded-2xl text-left font-black text-sm sm:text-base flex items-center gap-2.5";
+        btn.dataset.value = optText;
+        btn.dataset.isCorrect = (optText.toLowerCase() === correctAnswerForStep.toLowerCase()) ? "true" : "false";
+        btn.innerHTML = `
+          <span class="w-7 h-7 rounded-xl ${badgeColor} text-white flex items-center justify-center text-xs font-black shrink-0">
+            ${tags[idx]}
+          </span>
+          <span class="leading-snug">${optText}</span>
+        `;
+        btn.onclick = () => onOptionClicked(optText);
+        grid.appendChild(btn);
+      });
+    }
+
+    function markQuestionMistake() {
+      if (!currentQuestionHadMistake && !currentQuestionShielded) {
+        currentQuestionHadMistake = true;
+        const flagBadge = document.getElementById("mistakeFlagBadge");
+        flagBadge.classList.remove("hidden");
+        flagBadge.textContent = "⚠️ 本题出现失误，请继续完成剩余步骤，稍后将重新出现直到100%掌握";
+      }
+    }
+
+    function onOptionClicked(selectedVal) {
+      if (isPreReadLocked) return;
+      const item = currentQuestionObj.data;
+      const correctBm = item.bmOptions[0];
+      const hasKD = Boolean(item.kataDasar);
+
+      if (currentStep === 1) {
+        // 第 1 步：选国语字填入句子
+        const isRight = (selectedVal.toLowerCase() === correctBm.toLowerCase());
+        const slot = document.querySelector("#quizQuestionBox .blank-slot");
+
+        if (isRight) {
+          playFeedbackTone("step_ok");
+          if (slot) {
+            slot.textContent = correctBm;
+            slot.classList.add("filled-right");
+          }
+          document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-emerald-700">✅ 第 1 步填词正确！现在进入第 2 步：选出 "${correctBm}" 的华语意思！</span>`;
+        } else {
+          playFeedbackTone("wrong");
+          markQuestionMistake();
+          if (slot) {
+            slot.innerHTML = `<span class="line-through opacity-75 mr-1">${selectedVal}</span> ➔ ${correctBm}`;
+            slot.classList.add("filled-wrong");
+          }
+          document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-rose-700 animate-shake">❌ 填词错误（正解是 "${correctBm}"）！请继续完成第 2 步：选出 "${correctBm}" 的华语意思！</span>`;
+        }
+
+        // 进入第 2 步：选华语意思
+        currentStep = 2;
+        setStepPillsUI(2, hasKD);
+        renderQuizOptions(shuffleArray(item.zhOptions), "zh");
+
+      } else if (currentStep === 2) {
+        // 第 2 步：选华语意思
+        const isRight = (selectedVal === item.meaning);
+
+        if (isRight) {
+          playFeedbackTone("step_ok");
+        } else {
+          playFeedbackTone("wrong");
+          markQuestionMistake();
+        }
+
+        if (hasKD) {
+          // 若有 Kata Dasar，进入第 3 步
+          currentStep = 3;
+          setStepPillsUI(3, true);
+          document.getElementById("quizFeedbackArea").innerHTML = isRight
+            ? `<span class="text-xs sm:text-sm font-black text-emerald-700">✅ 华语意思正确！第 3 步：请选出 "${correctBm}" 的 Kata Dasar (词根)！</span>`
+            : `<span class="text-xs sm:text-sm font-black text-rose-700 animate-shake">❌ 华语意思误选（正解：${item.meaning}）！请继续第 3 步：选出 "${correctBm}" 的 Kata Dasar！</span>`;
+
+          renderQuizOptions(shuffleArray(item.kdOptions), "kd");
+        } else {
+          // 若无 Kata Dasar，直接结束本题结算
+          finalizeQuestion();
+        }
+
+      } else if (currentStep === 3) {
+        // 第 3 步：选 Kata Dasar
+        const isRight = (selectedVal.toLowerCase() === item.kataDasar.toLowerCase());
+        if (!isRight) {
+          playFeedbackTone("wrong");
+          markQuestionMistake();
+        }
+        finalizeQuestion();
+      }
+    }
+
+    function finalizeQuestion() {
+      clearInterval(answerTimer);
+      setBGMTension(false);
+      document.getElementById("quizPanel").classList.remove("tension-border");
+      setOptionsDisabled(true);
+
+      const item = currentQuestionObj.data;
+      const correctBm = item.bmOptions[0];
+      totalAttemptsCount++;
+
+      const completelyClean = !currentQuestionHadMistake;
+
+      if (completelyClean) {
+        playFeedbackTone("all_ok");
+        masteredCount++;
+        consecutivePerfectCount++;
+
+        let earned = 10;
+        if (doubleScoreCharges > 0) {
+          earned = 20;
+          doubleScoreCharges--;
+        }
+        scorePoints += earned;
+
+        const kdText = item.kataDasar ? ` • Kata Dasar: ${item.kataDasar}` : "";
+        document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-sm sm:text-base font-black text-emerald-600 animate-pop">🌟 全部步骤一次全对！+${earned} 分 (${correctBm} = ${item.meaning}${kdText})</span>`;
+
+        reviewLog.push({
+          term: correctBm,
+          meaning: item.meaning,
+          kataDasar: item.kataDasar,
+          mastered: true,
+          note: `完全掌握 (+${earned}分)`
+        });
+      } else {
+        // 本题有错：重新排入队列后面（插入在接下来的 2-4 题之后），确保 100% 掌握
+        consecutivePerfectCount = 0;
+
+        const insertPos = Math.min(quizQueue.length, Math.floor(Math.random() * 3) + 2);
+        quizQueue.splice(insertPos, 0, { data: item, isRetry: true });
+
+        const kdHint = item.kataDasar ? ` | Kata Dasar: ${item.kataDasar}` : "";
+        document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-rose-600 animate-shake">🔁 本题未达到全对（正解：${correctBm} = ${item.meaning}${kdHint}），已重新排入队列！</span>`;
+
+        reviewLog.push({
+          term: correctBm,
+          meaning: item.meaning,
+          kataDasar: item.kataDasar,
+          mastered: false,
+          note: `曾出现失误，已排入稍后重练`
+        });
+      }
+
+      updateMasteryProgressUI();
+      updateScoreAndBonusUI();
+
+      setTimeout(() => checkPostQuestionEvents(completelyClean), 1300);
+    }
+
+    // 检查每 5 题 Bonus 技能奖励 与 每 10 题小猴子接香蕉小游戏
+    let pendingBonusAfterMonkey = false;
+
+    function checkPostQuestionEvents(wasClean) {
+      const hit5Bonus = wasClean && consecutivePerfectCount > 0 && (consecutivePerfectCount % 5 === 0) && quizQueue.length > 0;
+      const hit10Monkey = (totalAttemptsCount > 0) && (totalAttemptsCount % 10 === 0) && quizQueue.length > 0;
+
+      if (hit10Monkey) {
+        pendingBonusAfterMonkey = hit5Bonus;
+        launchMonkeyMiniGame();
+      } else if (hit5Bonus) {
+        playFeedbackTone("bonus");
+        document.getElementById("bonusModal").classList.remove("hidden");
+      } else {
+        loadNextQuizQuestion();
+      }
+    }
+
+    // =========================================================================
+    // 7. 每答对 5 题 Bonus 技能奖励与背包使用逻辑
+    // =========================================================================
+    function claimBonusSkill(skillType) {
+      const skillMeta = {
+        time: { type: "time", icon: "⏰", label: "+15秒延时" },
+        hint: { type: "hint", icon: "💡", label: "排除2错项" },
+        double: { type: "double", icon: "✨", label: "2x双倍积分" },
+        shield: { type: "shield", icon: "🔄", label: "错题护盾" }
+      };
+      const chosen = skillMeta[skillType];
+      bonusInventory.push({
+        id: Date.now() + Math.random(),
+        ...chosen
+      });
+
+      document.getElementById("bonusModal").classList.add("hidden");
+      updateScoreAndBonusUI();
+      loadNextQuizQuestion();
+    }
+
+    function useBonusSkill(skillId) {
+      const idx = bonusInventory.findIndex(s => s.id === skillId);
+      if (idx === -1) return;
+      const skill = bonusInventory[idx];
+
+      if (skill.type === "time") {
+        if (isPreReadLocked) {
+          showToastInFeedback("⚠️ 请等 5 秒读题锁结束进入 30 秒倒计时后再使用延时卡！");
+          return;
+        }
+        answerSecondsLeft += 15;
+        updateAnswerCountdownUI(answerSecondsLeft);
+        if (answerSecondsLeft > 7) {
+          setBGMTension(false);
+          document.getElementById("quizPanel").classList.remove("tension-border");
+        }
+        playFeedbackTone("bonus");
+        showToastInFeedback("⏰ 使用成功！作答时间已延长 +15 秒！");
+      } else if (skill.type === "hint") {
+        if (isPreReadLocked) {
+          showToastInFeedback("⚠️ 请等选项解锁后再使用智能提示卡！");
+          return;
+        }
+        const wrongBtns = Array.from(document.querySelectorAll("#quizOptionsGrid button")).filter(
+          b => b.dataset.isCorrect === "false" && !b.dataset.eliminated
+        );
+        if (wrongBtns.length === 0) {
+          showToastInFeedback("💡 当前步骤已没有可排除的错误选项啦！");
+          return;
+        }
+        shuffleArray(wrongBtns).slice(0, 2).forEach(b => {
+          b.dataset.eliminated = "true";
+          b.disabled = true;
+          b.classList.add("opacity-30", "line-through");
+        });
+        playFeedbackTone("bonus");
+        showToastInFeedback("💡 智能提示卡生效！已帮你排除 2 个错误选项！");
+      } else if (skill.type === "double") {
+        doubleScoreCharges += 3;
+        playFeedbackTone("bonus");
+        showToastInFeedback("✨ 分数翻倍卡激活！接下来 3 道全对题目将获得双倍积分！");
+      } else if (skill.type === "shield") {
+        if (currentQuestionHadMistake) {
+          currentQuestionHadMistake = false;
+          currentQuestionShielded = true;
+          document.getElementById("mistakeFlagBadge").textContent = "🛡️ 错题护盾已生效！本题失误已豁免！";
+          document.getElementById("mistakeFlagBadge").className = "bg-emerald-100 text-emerald-800 border border-emerald-300 text-[11px] font-black px-2 py-0.5 rounded-lg";
+          playFeedbackTone("bonus");
+          showToastInFeedback("🔄 错题护盾使用成功！当前题目的失误已被完美豁免！");
+        } else {
+          const retryIdx = quizQueue.findIndex(q => q.isRetry);
+          if (retryIdx !== -1) {
+            const removed = quizQueue.splice(retryIdx, 1)[0];
+            masteredCount++;
+            updateMasteryProgressUI();
+            playFeedbackTone("bonus");
+            showToastInFeedback(`🔄 错题护盾使用成功！已直接攻克重练错题 "${removed.data.bmOptions[0]}"！`);
+          } else {
+            currentQuestionShielded = true;
+            playFeedbackTone("bonus");
+            showToastInFeedback("🛡️ 护盾已开启！本题若不小心答错将自动免疫重练！");
+          }
+        }
+      }
+
+      bonusInventory.splice(idx, 1);
+      updateScoreAndBonusUI();
+    }
+
+    function showToastInFeedback(msg) {
+      document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-black text-indigo-700 animate-pop">${msg}</span>`;
+    }
+
+    function updateScoreAndBonusUI() {
+      document.getElementById("scorePointsText").textContent = scorePoints;
+      const modStreak = consecutivePerfectCount % 5;
+      document.getElementById("streakCountText").textContent = (consecutivePerfectCount > 0 && modStreak === 0) ? 5 : modStreak;
+
+      const dblBadge = document.getElementById("doubleScoreIndicator");
+      if (doubleScoreCharges > 0) {
+        dblBadge.classList.remove("hidden");
+        document.getElementById("doubleChargesLeft").textContent = doubleScoreCharges;
+      } else {
+        dblBadge.classList.add("hidden");
+      }
+
+      const bar = document.getElementById("bonusInventoryBar");
+      bar.innerHTML = "";
+      if (bonusInventory.length === 0) {
+        bar.innerHTML = `<span class="text-xs font-bold text-gray-400 italic">暂无技能，全对 5 题即可抽取！</span>`;
+      } else {
+        bonusInventory.forEach(skill => {
+          const btn = document.createElement("button");
+          btn.className = "btn-3d bg-white hover:bg-amber-100 border-2 border-amber-400 shadow-[0_2px_0_#D97706] text-amber-950 text-xs font-black px-2.5 py-1 rounded-xl flex items-center gap-1 animate-pop";
+          btn.innerHTML = `<span>${skill.icon}</span><span>${skill.label}</span>`;
+          btn.onclick = () => useBonusSkill(skill.id);
+          bar.appendChild(btn);
+        });
+      }
+    }
+
+    // =========================================================================
+    // 8. 每完成 10 题：小猴子接香蕉迷你游戏 (Canvas 互动游戏，15 秒)
+    // =========================================================================
+    let monkeyAnimFrame = null;
+    let monkeyCountdownInterval = null;
+    let monkeySpawnInterval = null;
+    let monkeyTimeLeft = 15;
+    let monkeyEarnedPts = 0;
+
+    let monkeyX = 200;
+    const monkeyWidth = 64;
+    const monkeyHeight = 56;
+    let monkeyMoveDir = 0; // -1 左, 0 停, 1 右
+    let fallingItems = []; // { x, y, vy, type: 'banana' | 'coconut' }
+    let floatingPopups = []; // { x, y, text, color, alpha }
+
+    function setMonkeyMove(dir) {
+      monkeyMoveDir = dir;
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (document.getElementById("monkeyGameModal").classList.contains("hidden")) return;
+      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+        monkeyMoveDir = -1;
+      } else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+        monkeyMoveDir = 1;
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A" || e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+        monkeyMoveDir = 0;
+      }
+    });
+
+    function launchMonkeyMiniGame() {
+      playFeedbackTone("bonus");
+      const modal = document.getElementById("monkeyGameModal");
+      modal.classList.remove("hidden");
+
+      const canvas = document.getElementById("monkeyCanvas");
+      monkeyX = (canvas.width - monkeyWidth) / 2;
+      monkeyMoveDir = 0;
+      fallingItems = [];
+      floatingPopups = [];
+      monkeyTimeLeft = 15;
+      monkeyEarnedPts = 0;
+
+      document.getElementById("monkeyTimeLeft").textContent = "15";
+      document.getElementById("monkeyBonusPts").textContent = "0";
+
+      // 支持鼠标或手指直接在画布上拖动小猴子
+      const moveMonkeyToClientX = (clientX) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const relX = (clientX - rect.left) * scaleX;
+        monkeyX = Math.max(4, Math.min(canvas.width - monkeyWidth - 4, relX - monkeyWidth / 2));
+      };
+
+      canvas.onmousemove = (e) => {
+        if (e.buttons === 1) moveMonkeyToClientX(e.clientX);
+      };
+      canvas.ontouchmove = (e) => {
+        if (e.touches && e.touches.length > 0) {
+          moveMonkeyToClientX(e.touches[0].clientX);
+          e.preventDefault();
+        }
+      };
+      canvas.ontouchstart = (e) => {
+        if (e.touches && e.touches.length > 0) {
+          moveMonkeyToClientX(e.touches[0].clientX);
+        }
+      };
+
+      // 每 550ms 掉落一根香蕉或一颗椰子
+      monkeySpawnInterval = setInterval(() => {
+        const isCoconut = Math.random() < 0.25;
+        fallingItems.push({
+          x: 24 + Math.random() * (canvas.width - 64),
+          y: -25,
+          vy: 2.6 + Math.random() * 2.1,
+          type: isCoconut ? "coconut" : "banana"
+        });
+      }, 520);
+
+      // 15 秒倒计时
+      monkeyCountdownInterval = setInterval(() => {
+        monkeyTimeLeft--;
+        document.getElementById("monkeyTimeLeft").textContent = monkeyTimeLeft;
+        if (monkeyTimeLeft <= 0) {
+          finishMonkeyMiniGame();
+        }
+      }, 1000);
+
+      renderMonkeyLoop();
+    }
+
+    function renderMonkeyLoop() {
+      const canvas = document.getElementById("monkeyCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 绘制背景云朵与树叶装饰
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.beginPath();
+      ctx.arc(85, 50, 22, 0, Math.PI * 2);
+      ctx.arc(110, 46, 26, 0, Math.PI * 2);
+      ctx.arc(136, 52, 20, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(335, 65, 20, 0, Math.PI * 2);
+      ctx.arc(360, 60, 24, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 更新猴子位置
+      if (monkeyMoveDir !== 0) {
+        monkeyX += monkeyMoveDir * 6.5;
+        monkeyX = Math.max(4, Math.min(canvas.width - monkeyWidth - 4, monkeyX));
+      }
+
+      const monkeyY = canvas.height - monkeyHeight - 10;
+
+      // 绘制小猴子
+      ctx.font = "46px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillText("🐒", monkeyX + monkeyWidth / 2, monkeyY);
+
+      // 更新并绘制掉落物品
+      for (let i = fallingItems.length - 1; i >= 0; i--) {
+        const obj = fallingItems[i];
+        obj.y += obj.vy;
+
+        ctx.font = "32px sans-serif";
+        ctx.fillText(obj.type === "banana" ? "🍌" : "🥥", obj.x + 16, obj.y);
+
+        // 碰撞检测
+        const hitX = (obj.x + 26 > monkeyX + 6) && (obj.x + 6 < monkeyX + monkeyWidth - 6);
+        const hitY = (obj.y + 28 > monkeyY + 6) && (obj.y < monkeyY + monkeyHeight);
+
+        if (hitX && hitY) {
+          if (obj.type === "banana") {
+            monkeyEarnedPts += 10;
+            playFeedbackTone("banana");
+            floatingPopups.push({ x: monkeyX + monkeyWidth / 2, y: monkeyY - 10, text: "+10 🍌", color: "#15803D", alpha: 1 });
+          } else {
+            monkeyEarnedPts = Math.max(0, monkeyEarnedPts - 5);
+            playFeedbackTone("wrong");
+            floatingPopups.push({ x: monkeyX + monkeyWidth / 2, y: monkeyY - 10, text: "-5 🥥", color: "#B91C1C", alpha: 1 });
+          }
+          document.getElementById("monkeyBonusPts").textContent = monkeyEarnedPts;
+          fallingItems.splice(i, 1);
+          continue;
+        }
+
+        if (obj.y > canvas.height + 20) {
+          fallingItems.splice(i, 1);
+        }
+      }
+
+      // 绘制飘字特效
+      for (let i = floatingPopups.length - 1; i >= 0; i--) {
+        const p = floatingPopups[i];
+        p.y -= 1.2;
+        p.alpha -= 0.025;
+        if (p.alpha <= 0) {
+          floatingPopups.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.font = "bold 18px Fredoka, Noto Sans SC, sans-serif";
+        ctx.fillStyle = p.color;
+        ctx.fillText(p.text, p.x, p.y);
+        ctx.restore();
+      }
+
+      monkeyAnimFrame = requestAnimationFrame(renderMonkeyLoop);
+    }
+
+    function stopMonkeyMiniGame() {
+      cancelAnimationFrame(monkeyAnimFrame);
+      clearInterval(monkeyCountdownInterval);
+      clearInterval(monkeySpawnInterval);
+    }
+
+    function finishMonkeyMiniGame() {
+      stopMonkeyMiniGame();
+      document.getElementById("monkeyGameModal").classList.add("hidden");
+
+      if (monkeyEarnedPts > 0) {
+        scorePoints += monkeyEarnedPts;
+        updateScoreAndBonusUI();
+        playFeedbackTone("all_ok");
+      }
+
+      if (pendingBonusAfterMonkey) {
+        pendingBonusAfterMonkey = false;
+        playFeedbackTone("bonus");
+        document.getElementById("bonusModal").classList.remove("hidden");
+      } else {
+        loadNextQuizQuestion();
+      }
+    }
+
+    // =========================================================================
+    // 9. 100% 掌握通关成绩单弹窗
+    // =========================================================================
+    function showFinalSummary() {
+      clearInterval(preReadTimer);
+      clearInterval(answerTimer);
+      setBGMTension(false);
+      playFeedbackTone("unlock");
+
+      document.getElementById("summaryStudentMeta").textContent = `学生：${studentName} (${studentClass}) | Tahun 4 Bahasa Melayu • Unit 2: Jiran Sepakat`;
+      document.getElementById("sumTotalScore").textContent = `${scorePoints} 分`;
+      document.getElementById("sumTotalAttempts").textContent = `${totalAttemptsCount} 轮`;
+
+      const listBox = document.getElementById("sumReviewList");
+      listBox.innerHTML = "";
+      reviewLog.forEach((entry, idx) => {
+        const kdBadge = entry.kataDasar
+          ? `<span class="bg-purple-200 text-purple-900 px-1.5 py-0.5 rounded font-black ml-1">KD: ${entry.kataDasar}</span>`
+          : "";
+
+        const row = document.createElement("div");
+        row.className = `p-2 rounded-xl border flex flex-wrap items-center justify-between gap-2 ${
+          entry.mastered ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-amber-50 border-amber-200 text-amber-900"
+        }`;
+        row.innerHTML = `
+          <span><strong>第 ${idx + 1} 轮：</strong>${entry.term} (${entry.meaning})${kdBadge}</span>
+          <span class="font-black">${entry.mastered ? "✅ " + entry.note : "🔁 " + entry.note}</span>
+        `;
+        listBox.appendChild(row);
+      });
+
+      document.getElementById("summaryModal").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
